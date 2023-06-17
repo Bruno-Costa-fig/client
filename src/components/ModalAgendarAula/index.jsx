@@ -4,7 +4,7 @@ import TimePicker from "../TimePicker"
 import { useForm } from "react-hook-form";
 import moment from "moment";
 import * as yup from "yup"
-import {yupResolver} from "@hookform/resolvers/yup"
+import { yupResolver } from "@hookform/resolvers/yup"
 
 export default function ModalAgendarAula({ showModal, setShowModal, submitModal }) {
 
@@ -13,10 +13,12 @@ export default function ModalAgendarAula({ showModal, setShowModal, submitModal 
     data: yup.date().required("A data é obrigatória")
   })
 
-  const { register, formState: { errors }, handleSubmit } = useForm({resolver: yupResolver(classSchema), defaultValues: {
-    data: moment(new Date).add(1, "days").format("YYYY-MM-DD"),
-    hora: "08:00"
-  }})
+  const { register, formState: { errors }, handleSubmit } = useForm({
+    resolver: yupResolver(classSchema), defaultValues: {
+      data: moment(new Date).add(1, "days").format("YYYY-MM-DD"),
+      hora: "08:00"
+    }
+  })
 
   return (
     <>
@@ -45,27 +47,30 @@ export default function ModalAgendarAula({ showModal, setShowModal, submitModal 
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <form onSubmit={handleSubmit(submitModal)}>
-                    <InputGroup role="textbox" type="date" {...register("data")} name="data" placeholder="Digite a data" helperText={errors?.data?.message} labelText={"Data"}  />
+                    <InputGroup role="textbox" type="date" {...register("data")} name="data" placeholder="Digite a data" helperText={errors?.data?.message} labelText={"Data"} />
                     <TimePicker {...register("hora")} name="hora" placeholder="Escolha a hora" helperText={errors?.hora?.message} labelText={"Hora"} />
+                    {/*footer*/}
+                    <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                      <button
+                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        onClick={() => setShowModal(false)}
+                      >
+                        Fechar
+                      </button>
+                      <button
+                        role="button"
+                        className="bg-primary text-white active:bg-primary-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="submit"
+                        onClick={handleSubmit(submitModal)}
+                      >
+                        Agendar
+                      </button>
+
+                    </div>
                   </form>
                 </div>
-                {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                  <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Fechar
-                  </button>
-                  <button
-                    className="bg-primary text-white active:bg-primary-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="submit"
-                    onClick={() => handleSubmit(submitModal)}
-                  >
-                    Agendar
-                  </button>
-                </div>
+
               </div>
             </div>
           </div>
