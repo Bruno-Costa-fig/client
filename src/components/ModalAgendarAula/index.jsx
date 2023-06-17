@@ -22,7 +22,7 @@ export default function ModalAgendarAula({ showModal, setShowModal, submitModal 
     <>
       {showModal ? (
         <>
-          <div
+          <div data-testid="modal-agendar"
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
           >
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
@@ -45,8 +45,8 @@ export default function ModalAgendarAula({ showModal, setShowModal, submitModal 
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <form onSubmit={handleSubmit(submitModal)}>
-                    <InputGroup type="date" {...register("data")} helperText={errors?.data?.message} labelText={"Data"}  />
-                    <TimePicker {...register("hora")} helperText={errors?.hora?.message} labelText={"Hora"} />
+                    <InputGroup role="textbox" type="date" {...register("data")} name="data" placeholder="Digite a data" helperText={errors?.data?.message} labelText={"Data"}  />
+                    <TimePicker {...register("hora")} name="hora" placeholder="Escolha a hora" helperText={errors?.hora?.message} labelText={"Hora"} />
                   </form>
                 </div>
                 {/*footer*/}
@@ -61,7 +61,7 @@ export default function ModalAgendarAula({ showModal, setShowModal, submitModal 
                   <button
                     className="bg-primary text-white active:bg-primary-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="submit"
-                    onClick={handleSubmit(submitModal)}
+                    onClick={() => handleSubmit(submitModal)}
                   >
                     Agendar
                   </button>
